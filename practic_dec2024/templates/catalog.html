@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="shortcut icon" href="static/web/icons8-avocado-emoji-16.png" type="image/x-icon">
+    <title>avoskashop</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='catalog.css') }}">
+    <script> 
+        function addToCart(button) {
+             var card = button.closest('.card');
+              var name = card.querySelector('.card-title').textContent;
+               var img = card.querySelector('.card-img-top').src;
+            fetch('/add_to_cart', { 
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name: name, img: img }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
+    window.onscroll = function() {
+        var backToTopButton = document.getElementById("back-to-top");
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+             backToTopButton.style.display = "block";
+        } else {
+            backToTopButton.style.display = "none";
+         }
+         };
+           
+         function scrollToTop() {
+             window.scrollTo({ top: 0, behavior: 'smooth' });
+             }
+</script>
+</head>
+<body>
+    <header> 
+        <div class="header-container"> 
+            <div class="logo"> 
+                <img src="{{ url_for('static', filename='img/_.png') }}" alt="logo"> 
+            </div> 
+            <nav class="navbar"> 
+                <ul class="nav-links"> 
+                    <li><a href="{{url_for('orders')}}">Заказы</a></li> 
+                    <li><a href="{{url_for('addresses')}}">Адреса</a></li> 
+                    <li><a href="#">Профиль</a></li> 
+                    <li><a href="{{url_for('register')}}">Выход</a></li> 
+                    </ul> 
+                    </nav> 
+                    <div class="search-bar"> 
+                        <input type="text" placeholder="Поиск..."> 
+                        <button type="button">Поиск</button> 
+                    </div> 
+                </div> 
+            </header>
+    <div id="discountCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000"> 
+    <div class="carousel-inner"> 
+    <div class="carousel-item active"> 
+    <img src="{{ url_for('static', filename='img/65b04f36-3775-4fb2-a68a-15f5e9432b5e.jpg') }}" class="d-block w-100" alt="Товар 1 по скидке"> 
+</div> 
+<div class="carousel-item"> 
+    <img src="{{ url_for('static', filename='img/06a039dcdd543da702171127ccf741d3.png') }}" class="d-block w-100" alt="Товар 2 по скидке"> 
+    </div> 
+    <div class="carousel-item"> <img src="{{ url_for('static', filename='img/a2b1a4f5-7d61-4026-9410-1d2d3341cdb3.png') }}" class="d-block w-100" alt="Товар 3 по скидке"> 
+    </div> 
+</div> 
+<button class="carousel-control-prev" type="button" data-bs-target="#discountCarousel" data-bs-slide="prev"> 
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+    <span class="visually-hidden">Previous</span> 
+</button> 
+<button class="carousel-control-next" type="button" data-bs-target="#discountCarousel" data-bs-slide="next"> 
+    <span class="carousel-control-next-icon" aria-hidden="true"></span> 
+    <span class="visually-hidden">Next</span> 
+</button> 
+</div>
+    <main>
+        <div class="catalog">
+            <div class="sidebar">
+                 <ul> 
+                    <li><a href="#milk">Молоко, яйца и сыр</a></li>
+                    <li><a href="#bread">Хлеб и выпечка</a></li>
+                    <li><a href="#eats">Готовая еда</a></li>
+                    <li><a href="#meat_fish">Мясо и рыба</a></li>
+                    <li><a href="#water">Вода и напитки</a></li>
+                    <li><a href="#grocery">Бакалея</a></li> 
+                    <li><a href="#snacks">Снеки</a></li> 
+                    <li><a href="#sweet">Сладкое</a></li>
+                    <li><a href="#freezer">Морозилка</a></li> 
+                    </ul> 
+                </div> 
+            <div class="content">
+            <h2 id="milk">Молоко, яйца и сыр</h2>
+<section class="milk">
+<div class="card">
+    <img src="{{ url_for('static', filename='img/97d629c81420e8a6_4607064311712.jpg') }}" class="card-img-top" alt="Товар 11">
+    <div class="card-body">
+    <p class="card-title">Сливочное масло Село Зелёное, 82,5%, традиционное </p>
+    <p class="grams">175 г</p>
+    <div class="price">
+        <p class="">269 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div>
+</div>
+</div>
+<div class="card"> 
+    <img src="{{ url_for('static', filename='img/250fd9dc-dc6e-403d-9253-fc18936f6089.jpg') }}" class="card-img-top" alt="Товар 12">
+    <div class="card-body">
+    <p class="card-title">Куриное яйцо Село Зелёное, Деревенское, С1 </p>
+    <p class="grams">10 шт.</p>
+    <div class="price">
+        <p class="">135 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div>
+</div>
+</div>
+<div class="card"> 
+    <img src="{{ url_for('static', filename='img/93707_1781640797.jpg') }}" class="card-img-top" alt="Товар 13">
+    <div class="card-body">
+    <p class="card-title">Йогурт Греческий Teos черника, 2% </p>
+    <p class="grams">140 г</p>
+    <div class="price">
+        <p class="">69 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div>
+</div>
+</div>
+<div class="card">
+    <img src="{{ url_for('static', filename='img/119627_1143766898.jpg') }}" class="card-img-top" alt="Товар 14">
+    <div class="card-body">
+    <p class="card-title">Голландский сыр Брест-Литовск, полутвёрдый, 45% </p>
+    <p class="grams">200 г</p>
+    <div class="price">
+        <p class="">247 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div>
+</div>
+</div>
+<div class="card">   
+    <img src="{{ url_for('static', filename='img/9732693e-ff6a-440b-8b70-4685f21273ca.jpg') }}" class="card-img-top" alt="Товар 15">
+    <div class="card-body">
+    <p class="card-title">Сметана Простоквашино 15% </p>
+    <p class="grams">300 г</p>
+    <div class="price">
+        <p class="">105 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div>
+</div>
+</div>
+<div class="card">  
+    <img src="{{ url_for('static', filename='img/e252099d-237f-4633-b9a6-2178b3f572e6.jpg') }}" class="card-img-top" alt="Товар 16">
+    <div class="card-body">
+    <p class="card-title">Молоко Домик в деревне, 3,5-4,5%, отборное, пастеризованное</p>
+    <p class="grams">930 мл</p>
+    <div class="price">
+        <p class="">115 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div>
+</div> 
+</div>
+</section>
+<h2 id="bread">Хлеб и выпечка</h2>
+<section class="bread">
+<div class="card">  
+    <img src="{{ url_for('static', filename='img/4b497a143098dd66_4605829006040-1.jpg') }}"class="card-img-top" alt="Товар 2">
+    <p class="">Пшеничный хлеб Harry’s American Sandwich, для сэндвичей, нарезка </p>
+    <p class="grams">470 г</p>
+    <div class="price">
+        <p class="">149 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div></div>
+<div class="card">  
+    <img src="{{ url_for('static', filename='img/267603087_187516455.jpg') }}" alt="">
+    <p class="">Хлеб пшеничный Край каравай Русский</p>
+    <p class="grams">350 г</p>
+    <div class="price">
+        <p class="">59 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div></div>
+<div class="card">
+    <img src="{{ url_for('static', filename='img/52d18905-5e83-4907-84fe-384c6aba3036.jpg') }}" alt="">
+    <p class="">Круассан Алый вельвет Самокат, с ванильно-сливочным вкусом </p>
+    <p class="grams">85 г</p>
+    <div class="price">
+        <p class="">163 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div></div>
+<div class="card"> 
+    <img src="{{ url_for('static', filename='img/d684e18b-1036-41fd-9427-f02d9c8de3f7.jpg') }}" alt="">
+    <p class="">Конвертики Creative Kitchen, с сыром, баклажанами и творогом, с томатным соусом </p>
+    <p class="grams">170 г</p>
+    <div class="price">
+        <p class="">230 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div></div>
+<div class="card">  
+    <img src="{{ url_for('static', filename='img/b9116db1-40eb-4a6c-97ab-83f26aed651c.jpg') }}" alt="">
+    <p class="">Хлебцы Dr. Körner, хрустящие, кукурузно-рисовые, с прованскими травами</p>
+    <p class="grams">100 г</p>
+    <div class="price">
+        <p class="">119 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div></div>
+<div class="card"> 
+    <img src="{{ url_for('static', filename='img/54aa3444-02b3-4681-b0a9-17f1b0d0979e.jpg') }}" alt="">
+    <p class="">Крекеры Tuc, сыр </p>
+    <p class="grams">100 г</p>
+    <div class="price">
+        <p class="">90 ₽</p>
+        <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+    </div></div>
+</section>
+<h2 id="eats">Готовая еда</h2>
+<section class="eats">
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/e7c6e91f-0fdc-4c24-9d2f-25fa552a5899.jpg') }}" alt="">
+        <p class="">Сырники Creative Kitchen, с клюквенной начинкой </p>
+        <p class="grams">120 г</p>
+        <div class="price">
+            <p class="">185 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/f8b92805-2ec4-4d60-b485-1c177c689db6.jpg') }}" alt="">
+        <p class="">Рисовая каша Creative Kitchen, на кокосовом молоке</p>
+        <p class="grams">220 г</p>
+        <div class="price">
+            <p class="">199 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/8401b582-c462-4fce-9ca0-4cafefa66de0.jpg') }}" alt="">
+        <p class="">Фо бо, с говядиной</p>
+        <p class="grams">340 г</p>
+        <div class="price">
+            <p class="">255 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/fbec9d4c48e7f996_4630061959304-1.jpg') }}" alt="">
+        <p class="">Лагман Creative Kitchen</p>
+        <p class="grams">300 г</p>
+        <div class="price">
+            <p class="">229 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/968d8004-84f7-4118-b8f1-e03212b33dba.jpg') }}" alt="">
+        <p class="">Оливье, с ветчиной </p>
+        <p class="grams">180 г</p>
+        <div class="price">
+            <p class="">185 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/0f9cb508-4a9c-42d4-a4a9-4c769c419e26.jpg') }}" alt="">
+        <p class="">Цезарь Самокат x Creative Kitchen, с курицей </p>
+        <p class="grams">200 г</p>
+        <div class="price">
+            <p class="">329 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+</section>
+<h2 id="meat_fish">Мясо и рыба</h2>
+<section class="meat_fish">
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/b19826fc764cfbdf_4670018040426-1.jpg') }}" alt="">
+        <p class="">Свиная лопатка Слово мясника, охлаждённая </p>
+        <p class="grams">800 г</p>
+        <div class="price">
+            <p class="">339 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/787281d8-3df1-4b02-94a9-0a5a67f23aaa.jpg') }}" alt="">
+        <p class="">Стейк Индилайт, из грудки индейки </p>
+        <p class="grams">525 г</p>
+        <div class="price">
+            <p class="">405 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/0576319d-d097-4f99-b9c7-18f15270812b.jpg') }}" alt="">
+        <p class="">Филе цыплёнка Ив. Курников Кур-нята, малое, охлаждённое </p>
+        <p class="grams">650 г</p>
+        <div class="price">
+            <p class="">345 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card"> 
+        <img src="{{ url_for('static', filename='img/621e595f-6376-4d82-b51a-f33ea9bfc0bf.jpg') }}" alt="">
+        <p class="">Стейк Деликатесный Мираторг Black Angus, из мраморной говядины, охлаждённый </p>
+        <p class="grams">330 г</p>
+        <div class="price">
+            <p class="">389 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/d8358541c8e02f19_2200257000008-1.jpg') }}" alt="">
+        <p class="">Форель Самокат Стейковая, замороженная</p>
+        <p class="grams">390 г</p>
+        <div class="price">
+            <p class="">869 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card"> 
+        <img src="{{ url_for('static', filename='img/dee043d7-32f4-4008-b7b6-ff42abb5727b.jpg') }}" alt="">
+        <p class="">Морской коктейль, заморозка</p>
+        <p class="grams">500 г</p>
+        <div class="price">
+            <p class="">349 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+</section>
+<h2 id="water">Вода и напитки</h2>
+<section class="water">
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/0fc6bb1e-5786-49c9-a7e1-7ba6111af66f.jpg') }}" alt="">
+        <p class="">Вода Сенежская, без газа </p>
+        <p class="grams">3 л</p>
+        <div class="price">
+            <p class="">75 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/1f021f31-54fa-4c2b-9a62-bc377e506156.jpg') }}" alt="">
+        <p class="">Холодный зелёный чай Lipton </p>
+        <p class="grams">1 л</p>
+        <div class="price">
+            <p class="">145 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/6fa9550957f731d4_4600068009043.jpg') }}" alt="">
+        <p class="">Квас Очаковский, фильтрованный</p>
+        <p class="grams">2 л</p>
+        <div class="price">
+            <p class="">109 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/143454_1028151812.jpg') }}" alt="">
+        <p class="">Pepsi </p>
+        <p class="grams">0,33 л</p>
+        <div class="price">
+            <p class="">99 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card"> 
+        <img src="{{ url_for('static', filename='img/885b1192-897e-4fa9-8661-d264f19f78ff.jpg') }}" alt="">
+        <p class="">Энергетик Lit Energy, гранат </p>
+        <p class="grams">0,45 л</p>
+        <div class="price">
+            <p class="">99 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/db337271c06f1a15_4601201054104_1.jpg') }}" alt="">
+        <p class="">Напиток Любимый, с соком, апельсиновое манго, с мякотью </p>
+        <p class="grams">1,93 л</p>
+        <div class="price">
+            <p class="">235 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+</section>
+<h2 id="grocery">Бакалея</h2>
+<section class="grocery">
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/b7d454a2bf29172b_8076809576079.jpg') }}" alt="">
+        <p class="">Макароны Barilla, пенне ригате</p>
+        <p class="grams">450 г</p>
+        <div class="price">
+            <p class="">129 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/ec5ff5fb1a1ee6eb_4607072710101.jpg') }}" alt="">
+        <p class="">Гречневая крупа Агро-Альянс Экстра </p>
+        <p class="grams">900 г</p>
+        <div class="price">
+            <p class="">99 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/297e56b6fbd12803_4607051159945.jpg') }}" alt="">
+        <p class="">Чёрный чай Richard, Royal Ceylon, в пакетиках</p>
+        <p class="grams">100 шт.</p>
+        <div class="price">
+            <p class="">389 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/54754c80-fb13-4694-8cbb-99a8e92713b1.jpg') }}" alt="">
+        <p class="">Молотый кофе Monarch, Gold Arabica </p>
+        <p class="grams">200 г</p>
+        <div class="price">
+            <p class="">399 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/c0de1e4955a38c6a_4600699501121.jpg') }}" alt="">
+        <p class="">Подсолнечное масло Слобода, рафинированное, дезодорированное</p>
+        <p class="grams">1 л</p>
+        <div class="price">
+            <p class="">155 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/88d134cd-e747-4f3e-a8e3-03ab6cff9322.jpg') }}" alt="">
+        <p class="">Маринованные огурцы Дядя Ваня, по-берлински </p>
+        <p class="grams">680 г</p>
+        <div class="price">
+            <p class="">299 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+</section>
+<h2 id="snacks">Снеки</h2>
+<section class="snacks">
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/2a8e963a-051b-4614-8e28-991789291038.jpg') }}" alt="">
+        <p class="">Чипсы Lay's, красная икра </p>
+        <p class="grams">120 г</p>
+        <div class="price">
+            <p class="">189 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/5631ef4d-cfc0-4006-a4b8-a3fd9a925e67.jpg') }}" alt="">
+        <p class="">Чипсы Pringles, паприка </p>
+        <p class="grams">165 г</p>
+        <div class="price">
+            <p class="">415 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">
+        <img src="{{ url_for('static', filename='img/24dc2306-abe0-49ec-b4b8-4f606f5e7504.jpg') }}" alt="">
+        <p class="">Смесь орехов Семушка, жареные, с изюмом </p>
+        <p class="grams">150 г</p>
+        <div class="price">
+            <p class="">152 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/160451_1905383464.jpg') }}" alt="">
+        <p class="">Полосатые подсолнечные семечки От Мартина, жареные, с солью </p>
+        <p class="grams">150 г</p>
+        <div class="price">
+            <p class="">125 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/e817067ef8ed8e8e_4607087520672.jpg') }}" alt="">
+        <p class="">Пшеничные чипсы Binggrae, морская капуста </p>
+        <p class="grams">40 г</p>
+        <div class="price">
+            <p class="">94 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/ccb4cc9e-7501-40e0-906e-327428ab90e6.jpg') }}" alt="">
+        <p class="">Кукурузные снеки Cheetos, мандарин </p>
+        <p class="grams">70 г</p>
+        <div class="price">
+            <p class="">109 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+</section>
+<h2 id="sweet">Сладкое</h2>
+<section class="sweet">
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/1694514724-4044B32F-0D9D-11ED-AE72-08C0EB320147.jpg') }}" alt="">
+        <p class="">Мороженое Monterra, с кленовым сиропом и грецким орехом, в ведёрке </p>
+        <p class="grams">298 г</p>
+        <div class="price">
+            <p class="">519 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card"> 
+        <img src="{{ url_for('static', filename='img/9b9f4104-c59d-4479-bc63-3319389c5ed8.jpg') }}" alt="">
+        <p class="">Бисквит Медвежонок Барни, с молочной начинкой </p>
+        <p class="grams">150 г</p>
+        <div class="price">
+            <p class="">136 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/850d00b0-b13a-4e30-a9a4-d0438cd962ac.jpg') }}" alt="">
+        <p class="">Драже Skittles, фруктовый вкус</p>
+        <p class="grams">140 г</p>
+        <div class="price">
+            <p class="">169 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/8edb7dbc-d9b7-4fd7-882a-65b4451d5754.jpg') }}" alt="">
+        <p class="">Ореховая паста Nutella</p>
+        <p class="grams">350 г</p>
+        <div class="price">
+            <p class="">609 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">    
+        <img src="{{ url_for('static', filename='img/0304811e-3c5d-4301-920c-3974e41a777a.jpg') }}" alt="">
+        <p class="">Шоколадные батончики Snickers, Minis </p>
+        <p class="grams">180 г</p>
+        <div class="price">
+            <p class="">249 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card"> 
+        <img src="{{ url_for('static', filename='img/1b67ba40-f003-417a-8e6e-a955cee3e4f8.jpg') }}" alt="">
+        <p class="">Печенье Milka, с кусочками молочного шоколада </p>
+        <p class="grams">126 г</p>
+        <div class="price">
+            <p class="">177 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+</section>
+<h2 id="freezer">Морозилка</h2>
+<section class="freezer">
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/82f3f445-8b91-4fd7-a49e-75bd7b19eef0.jpg') }}" alt="">
+        <p class="">Лёд, кусковой </p>
+        <p class="grams">1 кг</p>
+        <div class="price">
+            <p class="">109 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/487d73c3-d3ba-412d-a823-5763c0a6127b.jpg') }}" alt="">
+
+        <p class="">Медальоны Самокат, из филе тунца и брокколи, замороженные </p>
+        <p class="grams">300 г</p>
+        <div class="price">
+            <p class="">369 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">    
+        <img src="{{ url_for('static', filename='img/150042_767948844.jpg') }}" alt="">
+        <p class="">Фасулье по-турецки Bonduelle, заморозка </p>
+        <p class="grams">400 г</p>
+        <div class="price">
+            <p class="">259 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">  
+        <img src="{{ url_for('static', filename='img/33a95dd0-ce00-457c-abb4-94908308c912.jpg') }}" alt="">
+        <p class="">Пицца пепперони Zotman, заморозка </p>
+        <p class="grams">400 г</p>
+        <div class="price">
+            <p class="">251 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/301263130_758210670.jpg') }}" alt="">
+        <p class="">Пельмени Мираторг Black, Фирменные, из свинины и говядины </p>
+        <p class="grams">700 г</p>
+        <div class="price">
+            <p class="">459 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div></div>
+    <div class="card">   
+        <img src="{{ url_for('static', filename='img/8bc14c5e-0360-4203-8c85-1098c85ef0e0.jpg') }}" alt="">
+        <p class="">Наггетсы Вязанка, с куриным филе и сыром, заморозка </p>
+        <p class="grams">250 г</p>
+        <div class="price">
+            <p class="">199 ₽</p>
+            <button class="btn btn-primary" onclick="addToCart(this)">Добавить в корзину</button>
+        </div>
+    </div>
+</section>
+ </div>
+</div>
+    </main>
+    <footer>
+<div class="">
+<p class="">Copyright 2019-2024</p>
+<p class="">Avoska</p>
+</div>
+<div class="">
+<p class="">+7 800 111-22-99</p>
+<p class="">Круглосуточно</p>
+</div>
+    </footer>
+<a id="back-to-top" href="javascript:void(0);" onclick="scrollToTop()" style="display: none;">⬆ </a>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
